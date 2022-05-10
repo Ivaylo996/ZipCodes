@@ -9,7 +9,6 @@ namespace ZipCodes.Pages.MainPage
 {
     public partial class MainPage
     {
-        public IWebElement searchButton => WaitAndFindElement(By.XPath("//a[@title='FREE ZIP Code Search']"));
-
+        public IWebElement SearchButton => WaitAndFindElement(By.XPath("//a[@title='FREE ZIP Code Search']"));
     }
 }

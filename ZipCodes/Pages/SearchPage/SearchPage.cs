@@ -1,10 +1,6 @@
 ﻿using OpenQA.Selenium;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ZipCodes.Pages.SearchPage
 {
@@ -14,64 +10,29 @@ namespace ZipCodes.Pages.SearchPage
         {
         }
 
-        protected override string Url => throw new NotImplementedException();
-
-        private List<ZipCodeInfo> zipCodeInfo = new ();
+        protected override string Url => "https://www.zip-codes.com/search.asp";
 
         public void AdvancedSearchZipCodes(string cityName)
         {
-            WaitForPageToLoad();
+            WaitUntilPageLoadsCompletely();
 
-            if (gdprConsentButton.Displayed)
+            if (GetGDPR().Count != 0)
             {
-                gdprConsentButton.Click();
+                WaitUntilElementIsClickable(GdprConsentButton);
+                GdprConsentButton.Click();
             }
 
-            advancedSearchButton.Click();
-            townInputTextBox.SendKeys(cityName);
-            findZipCodesButton.Click();
+            AdvancedSearchButton.Click();
+            TownInputTextBox.SendKeys(cityName);
+            FindZipCodesButton.Click();
+
+            WaitForAjax();
         }
 
-        public void GetCityInfo()
+        private void WaitUntilPageLoadsCompletely()
         {
-            for (int i = 2; i <= 11; i++)
-            {
-                GetZipCodesInfoButton(i).Click();
-
-                zipCodeInfo.Add(new ZipCodeInfo() 
-                { 
-                    CityName = cityNameFromSearchResult.Text,
-                    StateName = stateNameFromSearchResult.Text,
-                    ZipCode = zipCodeFromSearchResult.Text,
-                    Latitude = latitudeFromSearchResult.Text,
-                    Longitude = longitudeFromSearchResult.Text
-                });
-
-                TakeScreenshotOfGoogleMapsLink(cityNameFromSearchResult.Text, stateNameFromSearchResult.Text, zipCodeFromSearchResult.Text, latitudeFromSearchResult.Text, longitudeFromSearchResult.Text);
-            }
-        }
-
-        public string GenerateGoogleMapsLink(string latitude, string longitude)
-        {
-            return $"https://maps.google.com/?q={latitude},{longitude}";
-        }
-
-        public void TakeScreenshotOfGoogleMapsLink(string city, string state, string zipCode, string latitude, string longitude)
-        {
-            string fileName = $"{city}-{state}-{zipCode}.jpg";
-
-            Driver.Navigate().GoToUrl(GenerateGoogleMapsLink(latitude,longitude));
-
-            Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
-            screenshot.SaveAsFile(fileName, ScreenshotImageFormat.Jpeg);
-
-            Driver.Navigate().Back();
-            Driver.Navigate().Back();
-        }
-
-        protected override void WaitForPageToLoad()
-        {
-            WaitAndFindElement(By.XPath("//button[@aria-label='Consent']"));
+            var js = (IJavaScriptExecutor)Driver;
+            WebDriverWait.Until(wd => js.ExecuteScript("return document.readyState").ToString() == "complete");
         }
     }
 }

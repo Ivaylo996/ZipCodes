@@ -3,10 +3,6 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using OpenQA.Selenium.Interactions;
 using SeleniumExtras.WaitHelpers;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZipCodes
 {
@@ -41,14 +37,26 @@ namespace ZipCodes
         {
         }
 
-        protected void ScrollToElement(IWebElement iWebElement)
+        protected void ScrollToElement(IWebElement elementToScrollTo)
         {
-            ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView(true);", iWebElement);
+            ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView(true);", elementToScrollTo);
+        }
+
+        public void WaitUntilElementIsClickable(IWebElement elementToClick)
+        {
+            WebDriverWait.Until(ExpectedConditions.ElementToBeClickable(elementToClick));
         }
 
         protected IWebElement WaitAndFindElement(By by)
         {
             return WebDriverWait.Until(ExpectedConditions.ElementExists(by));
+        }
+
+        public void WaitForAjax()
+        {
+            var js = (IJavaScriptExecutor)Driver;
+
+            WebDriverWait.Until(wd => js.ExecuteScript("return jQuery.active").ToString() == "0");
         }
     }
 }

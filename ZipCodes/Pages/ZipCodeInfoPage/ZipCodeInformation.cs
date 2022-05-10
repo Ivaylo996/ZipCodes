@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZipCodes.Pages.SearchPage
+namespace ZipCodes.Pages.ZipCodeInfoPage
 {
-    public class ZipCodeInfo
+    public class ZipCodeInformation
     {
         public string CityName { get; set; }
         public string StateName { get; set; }

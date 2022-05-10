@@ -1,10 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ZipCodes.Pages.MainPage
 {
@@ -20,7 +14,7 @@ namespace ZipCodes.Pages.MainPage
         {
             GoTo();
 
-            searchButton.Click();
+            SearchButton.Click();
         }
     }
 }

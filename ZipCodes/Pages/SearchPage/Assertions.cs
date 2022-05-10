@@ -4,14 +4,9 @@ namespace ZipCodes.Pages.SearchPage
 {
     public partial class SearchPage
     {
-        public void AssertionZipCodesInfoDisplayed_When_AdvancedSearchForTown(string expectedLabelText)
+        public void AssertionRedirectedToSeachPage()
         {
-            Assert.AreEqual(expectedLabelText ,actualPageCounterLabel.Text.Trim());
-        }
-
-        public void AssertionRedirectedToSeachPage_When_ClickSearchButton()
-        {
-            Assert.AreEqual("Advanced Search", advancedSearchButton.Text);
+            Assert.AreEqual("Advanced Search", AdvancedSearchButton.Text);
         }
     }
 }
