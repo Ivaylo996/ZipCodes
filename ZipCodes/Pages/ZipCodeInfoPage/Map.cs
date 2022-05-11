@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ZipCodes.Pages.ZipCodeInfoPage
 {
@@ -13,7 +14,7 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
 
         public IList<IWebElement> CollectAllLinks()
         {
-            return Driver.FindElements(By.XPath("//tbody//tr//a[contains(@href,'/zip-code/')]"));
+            return (IList<IWebElement>)Driver.FindElements(By.XPath("//tbody//tr//a[contains(@href,'/zip-code/')]"));
         }
     }
 }

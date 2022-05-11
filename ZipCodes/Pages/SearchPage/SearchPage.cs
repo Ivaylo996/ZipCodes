@@ -16,11 +16,8 @@ namespace ZipCodes.Pages.SearchPage
         {
             WaitUntilPageLoadsCompletely();
 
-            if (GetGDPR().Count != 0)
-            {
-                WaitUntilElementIsClickable(GdprConsentButton);
-                GdprConsentButton.Click();
-            }
+            Driver.Manage().Cookies.AddCookie(new Cookie("complianz_consent_status", "allow"));
+            Driver.Navigate().Refresh();
 
             AdvancedSearchButton.Click();
             TownInputTextBox.SendKeys(cityName);
