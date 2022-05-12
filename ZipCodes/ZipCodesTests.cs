@@ -8,12 +8,13 @@ using WebDriverManager.Helpers;
 using ZipCodes.Pages.ZipCodeInfoPage;
 using ZipCodes.Pages.MainPage;
 using ZipCodes.Pages.SearchPage;
+using OpenQA.Selenium.Support.Events;
 
 namespace ZipCodes
 {
     public class ZipCodesTests : IDisposable
     {
-        private static IWebDriver _driver;
+        private static EventFiringWebDriver _driver;
         private static MainPage _mainPage;
         private static SearchPage _searchPage;
         private static ZipCodeInfoPage _zipCodeInfoPage; 
@@ -21,7 +22,13 @@ namespace ZipCodes
         public ZipCodesTests()
         {
             new DriverManager().SetUpDriver(new ChromeConfig(), VersionResolveStrategy.MatchingBrowser);
-            _driver = new ChromeDriver();
+            _driver = new EventFiringWebDriver(new ChromeDriver());
+
+            _driver.Navigated += WebDriverEventHandler.FiringDriver_Navigated;
+            _driver.Navigating += WebDriverEventHandler.FiringDriver_Navigating;
+            _driver.ElementClicking += WebDriverEventHandler.FiringDriver_Clicking;
+            _driver.ElementClicked += WebDriverEventHandler.FiringDriver_Clicked;
+
             _mainPage = new MainPage(_driver);
             _searchPage = new SearchPage(_driver);
             _zipCodeInfoPage = new ZipCodeInfoPage(_driver);
@@ -36,6 +43,12 @@ namespace ZipCodes
         public void Dispose()
         {
             _driver.Quit();
+        }
+
+        [TearDown]
+        public void TestCleanup()
+        {
+            WebDriverEventHandler.PerformanceTimingService.GenerateReport();
         }
 
         [Test]
