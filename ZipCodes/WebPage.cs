@@ -18,7 +18,7 @@ namespace ZipCodes
 
         protected IWebDriver Driver { get; set; }
         protected WebDriverWait WebDriverWait { get; set; }
-        protected abstract string Url { get;}
+        protected virtual string Url { get;}
 
         public void GoTo()
         {
@@ -57,6 +57,12 @@ namespace ZipCodes
             var js = (IJavaScriptExecutor)Driver;
 
             WebDriverWait.Until(wd => js.ExecuteScript("return jQuery.active").ToString() == "0");
+        }
+
+        public void WaitUntilPageLoadsCompletely()
+        {
+            var js = (IJavaScriptExecutor)Driver;
+            WebDriverWait.Until(wd => js.ExecuteScript("return document.readyState").ToString() == "complete");
         }
     }
 }

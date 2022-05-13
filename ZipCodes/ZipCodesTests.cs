@@ -1,14 +1,13 @@
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System;
+using NUnit.Framework;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.Events;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
-using ZipCodes.Pages.ZipCodeInfoPage;
 using ZipCodes.Pages.MainPage;
 using ZipCodes.Pages.SearchPage;
-using OpenQA.Selenium.Support.Events;
+using ZipCodes.Pages.ZipCodeInfoPage;
 
 namespace ZipCodes
 {
@@ -58,10 +57,10 @@ namespace ZipCodes
         {
             _mainPage.GoToSearchPage();
 
-            _searchPage.AssertionRedirectedToSeachPage();
+            _searchPage.AssertRedirectedToSeachPage();
 
             _searchPage.AdvancedSearchZipCodes(cityName);
-            _zipCodeInfoPage.GetCityInfo(5);
+            _zipCodeInfoPage.GetCitiesInfo(5);
             _zipCodeInfoPage.TakeScreenshotOfGoogleMapsLinks();
         }
     }

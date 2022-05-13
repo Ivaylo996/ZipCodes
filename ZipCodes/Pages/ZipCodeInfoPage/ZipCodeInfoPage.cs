@@ -13,9 +13,7 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
         {
         }
 
-        protected override string Url => "";
-
-        public void GetCityInfo(int numberOfCities)
+        public void GetCitiesInfo(int numberOfCities)
         {
             for (int i = 0; i < numberOfCities; i++)
             {
@@ -49,6 +47,7 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
                 Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
                 screenshot.SaveAsFile(googleLinks.Key, ScreenshotImageFormat.Jpeg);
             }
+            googleMapsLinks.Clear();
         }
     }
 }

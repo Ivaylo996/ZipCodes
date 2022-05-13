@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using OpenQA.Selenium;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
+using OpenQA.Selenium;
 using ZipCodes.Performance;
 
 namespace ZipCodes

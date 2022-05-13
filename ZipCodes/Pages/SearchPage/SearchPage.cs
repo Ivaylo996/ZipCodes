@@ -1,6 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ZipCodes.Pages.SearchPage
 {
@@ -24,12 +22,6 @@ namespace ZipCodes.Pages.SearchPage
             FindZipCodesButton.Click();
 
             WaitForAjax();
-        }
-
-        private void WaitUntilPageLoadsCompletely()
-        {
-            var js = (IJavaScriptExecutor)Driver;
-            WebDriverWait.Until(wd => js.ExecuteScript("return document.readyState").ToString() == "complete");
         }
     }
 }
