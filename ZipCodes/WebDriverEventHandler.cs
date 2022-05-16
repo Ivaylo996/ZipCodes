@@ -18,6 +18,17 @@ namespace ZipCodes
                 }
             }
         }
+
+        public static void FiringDriver_ScriptExecuting(object sender, WebDriverScriptEventArgs e)
+        {
+            Console.WriteLine("JavaScript Executing");
+        }
+
+        public static void FiringDriver_ScriptExecuted(object sender, WebDriverScriptEventArgs e)
+        {
+            Console.WriteLine("JavaScript Executed");
+        }
+
         public static void FiringDriver_Navigating(object sender, WebDriverNavigationEventArgs e)
         {
             Console.WriteLine("NAVIGATING  - " + e.Url);
