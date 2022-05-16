@@ -27,6 +27,8 @@ namespace ZipCodes
             _driver.Navigating += WebDriverEventHandler.FiringDriver_Navigating;
             _driver.ElementClicking += WebDriverEventHandler.FiringDriver_Clicking;
             _driver.ElementClicked += WebDriverEventHandler.FiringDriver_Clicked;
+            _driver.ScriptExecuting += WebDriverEventHandler.FiringDriver_ScriptExecuting;
+            _driver.ScriptExecuted += WebDriverEventHandler.FiringDriver_ScriptExecuted;
 
             _mainPage = new MainPage(_driver);
             _searchPage = new SearchPage(_driver);
