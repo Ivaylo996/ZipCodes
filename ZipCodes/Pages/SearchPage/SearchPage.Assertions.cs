@@ -4,9 +4,9 @@ namespace ZipCodes.Pages.SearchPage
 {
     public partial class SearchPage
     {
-        public void AssertRedirectedToSeachPage()
+        public void AssertRedirectedToSeachPage(string expectedSearchButtonText)
         {
-            Assert.AreEqual("Advanced Search", AdvancedSearchButton.Text);
+            Assert.AreEqual(expectedSearchButtonText, SearchPageAdvancedSearchButton.Text);
         }
     }
 }
