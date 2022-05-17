@@ -11,7 +11,7 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
         public IWebElement LongitudeFromSearchResult => Driver.FindElement(By.XPath("//span[contains(text(), 'Longitude')]//parent::td//following-sibling::td"));
         public IWebElement LatitudeFromSearchResult => Driver.FindElement(By.XPath("//span[contains(text(), 'Latitude')]//parent::td//following-sibling::td"));
 
-        public IList<IWebElement> CollectAllLinks()
+        public IList<IWebElement> GetCollectionOfZipCodeInformationLinksFromResultTable()
         {
             return (IList<IWebElement>)Driver.FindElements(By.XPath("//tbody//tr//a[contains(@href,'/zip-code/')]"));
         }

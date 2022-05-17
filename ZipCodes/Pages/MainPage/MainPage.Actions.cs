@@ -14,7 +14,7 @@ namespace ZipCodes.Pages.MainPage
         {
             GoTo();
 
-            SearchButton.Click();
+            MainPageSearchButton.Click();
         }
     }
 }

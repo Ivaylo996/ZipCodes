@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using OpenQA.Selenium;
 
 namespace ZipCodes.Pages.ZipCodeInfoPage
 {
@@ -13,11 +13,11 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
         {
         }
 
-        public void GetCitiesInfo(int numberOfCities)
+        public void GetInformationForNumberOfCities(int numberOfCities)
         {
             for (int i = 0; i < numberOfCities; i++)
             {
-                CollectAllLinks().ElementAt(i).Click();
+                GetCollectionOfZipCodeInformationLinksFromResultTable().ElementAt(i).Click();
 
                 zipCodeInfo.Add(new ZipCodeInformation()
                 {
@@ -28,17 +28,17 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
                     Longitude = LongitudeFromSearchResult.Text
                 });
 
-                googleMapsLinks.Add($"{CityNameFromSearchResult.Text}-{StateNameFromSearchResult.Text}-{ZipCodeFromSearchResult.Text}.jpg", GenerateGoogleMapsLink(LatitudeFromSearchResult.Text, LongitudeFromSearchResult.Text));
+                googleMapsLinks.Add($"{CityNameFromSearchResult.Text}-{StateNameFromSearchResult.Text}-{ZipCodeFromSearchResult.Text}.jpg", GetGeneratedGoogleMapsLinkByLatitudeAndLongitude(LatitudeFromSearchResult.Text, LongitudeFromSearchResult.Text));
                 Driver.Navigate().Back();
             }
         }
 
-        public string GenerateGoogleMapsLink(string latitude, string longitude)
+        public string GetGeneratedGoogleMapsLinkByLatitudeAndLongitude(string latitude, string longitude)
         {
             return $"https://maps.google.com/?q={latitude},{longitude}";
         }
 
-        public void TakeScreenshotOfGoogleMapsLinks()
+        public void TakeScreenshotOfGoogleMapsLinksAndSaveAsFile()
         {
             foreach (var googleLinks in googleMapsLinks)
             {

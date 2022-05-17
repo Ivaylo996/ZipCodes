@@ -57,15 +57,15 @@ namespace ZipCodes
         [Test]
         [TestCase("Iva")]
         [TestCase("Dim")]
-        public void ScreenshotCreated_When_CreatesGoogleMapsLinkForFirstTenTown(string cityName)
+        public void ScreenshotCreated_When_CreatesGoogleMapsLinkForNumberOfTowns(string cityName)
         {
             _mainPage.GoToSearchPage();
 
-            _searchPage.AssertRedirectedToSeachPage();
+            _searchPage.AssertRedirectedToSeachPage("Advanced Search");
 
-            _searchPage.AdvancedSearchZipCodes(cityName);
-            _zipCodeInfoPage.GetCitiesInfo(5);
-            _zipCodeInfoPage.TakeScreenshotOfGoogleMapsLinks();
+            _searchPage.AdvancedSearchZipCodesByCityName(cityName);
+            _zipCodeInfoPage.GetInformationForNumberOfCities(5);
+            _zipCodeInfoPage.TakeScreenshotOfGoogleMapsLinksAndSaveAsFile();
         }
     }
 }

@@ -10,18 +10,16 @@ namespace ZipCodes.Pages.SearchPage
 
         protected override string Url => "https://www.zip-codes.com/search.asp";
 
-        public void AdvancedSearchZipCodes(string cityName)
+        public void AdvancedSearchZipCodesByCityName(string cityName)
         {
             WaitUntilPageLoadsCompletely();
 
             Driver.Manage().Cookies.AddCookie(new Cookie("complianz_consent_status", "allow"));
             Driver.Navigate().Refresh();
 
-            AdvancedSearchButton.Click();
-            TownInputTextBox.SendKeys(cityName);
-            FindZipCodesButton.Click();
-
-            //WaitForAjax();
+            SearchPageAdvancedSearchButton.Click();
+            SearchPageTownInputTextBox.SendKeys(cityName);
+            SearchPageFindZipCodesButton.Click();
         }
     }
 }
