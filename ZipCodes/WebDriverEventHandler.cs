@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Events;
+using OpenQA.Selenium.Support.UI;
 using System;
 
 namespace ZipCodes
@@ -17,6 +18,20 @@ namespace ZipCodes
                     performanceTimingService = value; 
                 }
             }
+        }
+
+        public static void FiringDriver_FindingElement(object sender, FindElementEventArgs e)
+        {
+            Console.WriteLine("Finding Element");
+
+            var WebDriverWait = new WebDriverWait(e.Driver, TimeSpan.FromSeconds(30));
+            var js = (IJavaScriptExecutor)e.Driver;
+            WebDriverWait.Until(wd => js.ExecuteScript("return document.readyState").ToString() == "complete");
+        }
+
+        public static void FiringDriver_ExceptionThrown(object sender, WebDriverExceptionEventArgs e)
+        {
+            Console.WriteLine("Exception thrown" + e.ThrownException.ToString());
         }
 
         public static void FiringDriver_ScriptExecuting(object sender, WebDriverScriptEventArgs e)
