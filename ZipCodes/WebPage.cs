@@ -55,7 +55,6 @@ namespace ZipCodes
         public void WaitForAjax()
         {
             var js = (IJavaScriptExecutor)Driver;
-
             WebDriverWait.Until(wd => js.ExecuteScript("return jQuery.active").ToString() == "0");
         }
 

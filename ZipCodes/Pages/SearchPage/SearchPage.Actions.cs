@@ -21,7 +21,7 @@ namespace ZipCodes.Pages.SearchPage
             TownInputTextBox.SendKeys(cityName);
             FindZipCodesButton.Click();
 
-            WaitForAjax();
+            //WaitForAjax();
         }
     }
 }
