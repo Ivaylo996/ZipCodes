@@ -8,8 +8,6 @@ namespace ZipCodes.Pages.MainPage
         {
         }
 
-        protected override string Url => "https://www.zip-codes.com/";
-
         public void GoToSearchPage()
         {
             GoTo();

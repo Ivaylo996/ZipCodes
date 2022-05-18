@@ -4,11 +4,19 @@ namespace ZipCodes.Pages.SearchPage
 {
     public partial class SearchPage : WebPage
     {
+        private string currentSubUrl = "search.asp";
+
         public SearchPage(IWebDriver _driver) : base(_driver)
         {
         }
 
-        protected override string Url => "https://www.zip-codes.com/search.asp";
+        protected override string Url
+        { 
+            get
+            {
+                return base.Url + currentSubUrl;
+            }
+        }
 
         public void AdvancedSearchZipCodesByCityName(string cityName)
         {

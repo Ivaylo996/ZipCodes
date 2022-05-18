@@ -9,6 +9,7 @@ namespace ZipCodes
     public abstract class WebPage
     {
         private const int WAIT_FOR_ELEMENT_TIMEOUT = 60;
+        private string url = "https://www.zip-codes.com/";
 
         public WebPage(IWebDriver _driver)
         {
@@ -18,7 +19,17 @@ namespace ZipCodes
 
         protected IWebDriver Driver { get; set; }
         protected WebDriverWait WebDriverWait { get; set; }
-        protected virtual string Url { get;}
+        protected virtual string Url
+        {
+            get 
+            { 
+                return url; 
+            }
+            set
+            {
+                url = value;
+            }
+        }
 
         public void GoTo()
         {
