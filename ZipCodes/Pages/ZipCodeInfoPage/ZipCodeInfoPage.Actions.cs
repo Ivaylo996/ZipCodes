@@ -7,14 +7,14 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
     public partial class ZipCodeInfoPage : WebPage
     {
         private List<ZipCodeInformation> zipCodeInfo = new();
-        
+        private static Dictionary<string, string> googleMapsLinks = new();
 
         public ZipCodeInfoPage(IWebDriver _driver) 
             : base(_driver)
         {
         }
 
-        public void GenerateGoogleMapsLinksByNumberOfCities(int numberOfCities)
+        public Dictionary<string, string> GenerateGoogleMapsLinksByNumberOfCities(int numberOfCities)
         {
             List<string> zipCodeInfoLinks = GetResultZipCodeInfoLinks().Select(zipCodes => zipCodes.Text.ToString()).ToList();
 
@@ -33,6 +33,8 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
 
                 googleMapsLinks.Add($"{CityNameFromSearchResult.Text}-{StateNameFromSearchResult.Text}-{ZipCodeFromSearchResult.Text}.jpg", $"https://maps.google.com/?q={LatitudeFromSearchResult.Text},{LongitudeFromSearchResult.Text}");
             }
+
+            return googleMapsLinks;
         }
     }
 }

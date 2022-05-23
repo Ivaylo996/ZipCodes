@@ -10,7 +10,6 @@ namespace ZipCodes
     public abstract class WebPage
     {
         private const int WAIT_FOR_ELEMENT_TIMEOUT = 60;
-        protected static Dictionary<string, string> googleMapsLinks = new();
 
         public WebPage(IWebDriver _driver)
         {
