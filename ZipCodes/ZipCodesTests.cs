@@ -1,22 +1,23 @@
-using System;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.Events;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager.Helpers;
+using ZipCodes.Pages.GoogleMapsPage;
 using ZipCodes.Pages.MainPage;
 using ZipCodes.Pages.SearchPage;
 using ZipCodes.Pages.ZipCodeInfoPage;
 
 namespace ZipCodes
 {
-    public class ZipCodesTests : IDisposable
+    public class ZipCodesTests
     {
         private static EventFiringWebDriver _driver;
         private static MainPage _mainPage;
         private static SearchPage _searchPage;
-        private static ZipCodeInfoPage _zipCodeInfoPage; 
+        private static ZipCodeInfoPage _zipCodeInfoPage;
+        private static GoogleMapsPage _googleMapsPage;
 
         public ZipCodesTests()
         {
@@ -35,6 +36,7 @@ namespace ZipCodes
             _mainPage = new MainPage(_driver);
             _searchPage = new SearchPage(_driver);
             _zipCodeInfoPage = new ZipCodeInfoPage(_driver);
+            _googleMapsPage = new GoogleMapsPage(_driver);
         }
 
         [SetUp]
@@ -43,29 +45,23 @@ namespace ZipCodes
             _driver.Manage().Window.Maximize();
         }
 
-        public void Dispose()
-        {
-            _driver.Quit();
-        }
-
         [TearDown]
         public void TestCleanup()
         {
             WebDriverEventHandler.PerformanceTimingService.GenerateReport();
+            _driver.Quit();
         }
 
         [Test]
-        [TestCase("Iva")]
-        [TestCase("Dim")]
-        public void ScreenshotCreated_When_CreatesGoogleMapsLinkForNumberOfTowns(string cityName)
+        public void ScreenshotCreated_When_CreatesGoogleMapsLinks()
         {
             _mainPage.GoToSearchPage();
 
             _searchPage.AssertRedirectedToSeachPage("Advanced Search");
 
-            _searchPage.AdvancedSearchZipCodesByCityName(cityName);
-            _zipCodeInfoPage.GetInformationForNumberOfCities(5);
-            _zipCodeInfoPage.TakeScreenshotOfGoogleMapsLinksAndSaveAsFile();
+            _searchPage.AdvancedSearchZipCodesByCityName("Iva");
+            _zipCodeInfoPage.GenerateGoogleMapsLinksByNumberOfCities(5);
+            _googleMapsPage.TakeScreenshotOfGoogleMapsLinksAndSaveAsFile();
         }
     }
 }

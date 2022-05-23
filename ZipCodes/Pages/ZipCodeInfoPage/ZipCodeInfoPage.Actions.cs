@@ -7,19 +7,22 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
     public partial class ZipCodeInfoPage : WebPage
     {
         private List<ZipCodeInformation> zipCodeInfo = new();
-        private Dictionary<string, string> googleMapsLinks = new();
+        
 
-        public ZipCodeInfoPage(IWebDriver _driver) : base(_driver)
+        public ZipCodeInfoPage(IWebDriver _driver) 
+            : base(_driver)
         {
         }
 
-        public void GetInformationForNumberOfCities(int numberOfCities)
+        public void GenerateGoogleMapsLinksByNumberOfCities(int numberOfCities)
         {
-            for (int i = 0; i < numberOfCities; i++)
-            {
-                GetCollectionOfZipCodeInformationLinksFromResultTable().ElementAt(i).Click();
+            List<string> zipCodeInfoLinks = GetResultZipCodeInfoLinks().Select(zipCodes => zipCodes.Text.ToString()).ToList();
 
-                zipCodeInfo.Add(new ZipCodeInformation()
+            for (int i = 0; i < numberOfCities; i++)
+            {              
+                Driver.Navigate().GoToUrl(base.Url + $"zip-code/{zipCodeInfoLinks.ElementAt(i)}/zip-code-{zipCodeInfoLinks.ElementAt(i)}.asp");
+
+               zipCodeInfo.Add(new ZipCodeInformation()
                 {
                     CityName = CityNameFromSearchResult.Text,
                     StateName = StateNameFromSearchResult.Text,
@@ -28,26 +31,8 @@ namespace ZipCodes.Pages.ZipCodeInfoPage
                     Longitude = LongitudeFromSearchResult.Text
                 });
 
-                googleMapsLinks.Add($"{CityNameFromSearchResult.Text}-{StateNameFromSearchResult.Text}-{ZipCodeFromSearchResult.Text}.jpg", GetGeneratedGoogleMapsLinkByLatitudeAndLongitude(LatitudeFromSearchResult.Text, LongitudeFromSearchResult.Text));
-                Driver.Navigate().Back();
+                googleMapsLinks.Add($"{CityNameFromSearchResult.Text}-{StateNameFromSearchResult.Text}-{ZipCodeFromSearchResult.Text}.jpg", $"https://maps.google.com/?q={LatitudeFromSearchResult.Text},{LongitudeFromSearchResult.Text}");
             }
-        }
-
-        public string GetGeneratedGoogleMapsLinkByLatitudeAndLongitude(string latitude, string longitude)
-        {
-            return $"https://maps.google.com/?q={latitude},{longitude}";
-        }
-
-        public void TakeScreenshotOfGoogleMapsLinksAndSaveAsFile()
-        {
-            foreach (var googleLinks in googleMapsLinks)
-            {
-                Driver.Navigate().GoToUrl(googleLinks.Value);
-
-                Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
-                screenshot.SaveAsFile(googleLinks.Key, ScreenshotImageFormat.Jpeg);
-            }
-            googleMapsLinks.Clear();
         }
     }
 }

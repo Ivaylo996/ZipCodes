@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 using OpenQA.Selenium.Interactions;
 using SeleniumExtras.WaitHelpers;
 
@@ -9,7 +10,7 @@ namespace ZipCodes
     public abstract class WebPage
     {
         private const int WAIT_FOR_ELEMENT_TIMEOUT = 60;
-        private string url = "https://www.zip-codes.com/";
+        protected static Dictionary<string, string> googleMapsLinks = new();
 
         public WebPage(IWebDriver _driver)
         {
@@ -19,17 +20,7 @@ namespace ZipCodes
 
         protected IWebDriver Driver { get; set; }
         protected WebDriverWait WebDriverWait { get; set; }
-        protected virtual string Url
-        {
-            get 
-            { 
-                return url; 
-            }
-            set
-            {
-                url = value;
-            }
-        }
+        protected virtual string Url => "https://www.zip-codes.com/";
 
         public void GoTo()
         {
