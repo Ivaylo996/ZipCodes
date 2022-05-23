@@ -6,7 +6,7 @@ namespace ZipCodes.Pages.SearchPage
     {
         public void AssertRedirectedToSeachPage(string expectedSearchButtonText)
         {
-            Assert.AreEqual(expectedSearchButtonText, SearchPageAdvancedSearchButton.Text);
+            Assert.AreEqual(expectedSearchButtonText, AdvancedSearchButton.Text);
         }
     }
 }
