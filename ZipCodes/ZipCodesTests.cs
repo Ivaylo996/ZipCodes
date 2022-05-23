@@ -60,8 +60,7 @@ namespace ZipCodes
             _searchPage.AssertRedirectedToSeachPage("Advanced Search");
 
             _searchPage.AdvancedSearchZipCodesByCityName("Iva");
-            _zipCodeInfoPage.GenerateGoogleMapsLinksByNumberOfCities(5);
-            _googleMapsPage.TakeScreenshotOfGoogleMapsLinksAndSaveAsFile();
+            _googleMapsPage.TakeScreenshotOfGoogleMapsLinksAndSaveAsFile(_zipCodeInfoPage.GenerateGoogleMapsLinksByNumberOfCities(5));
         }
     }
 }

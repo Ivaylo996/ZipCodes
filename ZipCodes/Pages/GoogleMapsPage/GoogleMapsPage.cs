@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System.Collections.Generic;
 
 namespace ZipCodes.Pages.GoogleMapsPage
 {
@@ -9,7 +10,7 @@ namespace ZipCodes.Pages.GoogleMapsPage
         {
         }
 
-        public void TakeScreenshotOfGoogleMapsLinksAndSaveAsFile()
+        public void TakeScreenshotOfGoogleMapsLinksAndSaveAsFile(Dictionary<string, string> googleMapsLinks)
         {
             foreach (var googleLinks in googleMapsLinks)
             {
